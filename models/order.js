@@ -9,4 +9,4 @@ const orderSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-module.exports = mongoose.model("Order", orderSchema); // ✅ Capital O
+module.exports = mongoose.model("Order", orderSchema);
