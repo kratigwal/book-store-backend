@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// Create schema for Book collection
 const book = new mongoose.Schema({
   url: {
     type: String,
