@@ -2,8 +2,7 @@ const router = require("express").Router();
 const User = require("../models/user");
 const {authenticateToken} = require("./userAuth");
 
-// updated schema
-// put add to cart
+
 router.put("/add-to-cart" , authenticateToken , async (req,res) => {
     try{
            const {bookid , id}  = req.headers;
@@ -53,7 +52,7 @@ router.put("/remove-from-cart/:bookid", authenticateToken, async (req, res) => {
 router.get('/get-user-cart',authenticateToken,async(req,res) => {
 
     try{
-                const id = req.headers.id;                  //don't know how populate work
+                const id = req.headers.id;                  
                 const userdata = await User.findById(id).populate("cart");
                 const cart = userdata.cart.reverse();
                 return res.json({
