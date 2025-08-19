@@ -4,7 +4,6 @@ const User = require("../models/user");
 const {authenticateToken} = require('./userAuth');
 const jwt = require("jsonwebtoken");
 
-
 router.post("/add-book", authenticateToken ,async (req,res) => {
 
     try{
@@ -13,10 +12,7 @@ router.post("/add-book", authenticateToken ,async (req,res) => {
          if(user.role != "admin"){
            return  res.status(400).json({message:"Only Admin can add book!"});
          }
-        //  const book = new Book(req.body);
-        //  await book.save();
-        //  res.status(200).json({massage:"Book added successfully"});
-       
+         
         const book = new Book({
           url: req.body.url,
           title: req.body.title,
