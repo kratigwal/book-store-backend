@@ -3,8 +3,8 @@ const User = require("../models/user")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const {authenticateToken} = require("./userAuth");
-//sign up
 
+// sign up
 router.post("/sign-up", async (req,res) =>{
   try{
      const {username, email, password, address}= req.body;
@@ -33,7 +33,6 @@ router.post("/sign-up", async (req,res) =>{
         }
         const hashPass = await bcrypt.hash(password,10);
         
-
    const newUser = new User(
     {
       username: username,
@@ -49,34 +48,34 @@ router.post("/sign-up", async (req,res) =>{
 
 //sign in 
 
-router.post("/sign-in", async (req,res) =>{
-  try{
-    const {username,password} = req.body;
+// router.post("/sign-in", async (req,res) =>{
+//   try{
+//     const {username,password} = req.body;
 
-        const existingUser = await User.findOne({ username });
-        if (!existingUser) {
-             return res.status(400).json({ message: "invalid credential" });
-        }
-      await bcrypt.compare(password, existingUser.password,(err, data) =>{
-          if(data){
-            const authClaims =[
-              {name: existingUser.username},{role: existingUser.role},
-            ];
-            const token = jwt.sign({authClaims},"bookstore123", {expiresIn: "30d",
+//         const existingUser = await User.findOne({ username });
+//         if (!existingUser) {
+//              return res.status(400).json({ message: "invalid credential" });
+//         }
+//       await bcrypt.compare(password, existingUser.password,(err, data) =>{
+//           if(data){
+//             const authClaims =[
+//               {name: existingUser.username},{role: existingUser.role},
+//             ];
+//             const token = jwt.sign({authClaims},"bookstore123", {expiresIn: "30d",
 
-            });
-             res.status(200).json({id:existingUser.id,
-               role: existingUser.role, token: token,
-               message:"Login successfull"
-               });
-          }else{
-            res.status(400).json({message: "invalid credential"});
-          }
-        });
-   }catch (error){
-    res.status(500).json({message:"internal server error"});
-  }
-});
+//             });
+//              res.status(200).json({id:existingUser.id,
+//                role: existingUser.role, token: token,
+//                message:"Login successfull"
+//                });
+//           }else{
+//             res.status(400).json({message: "invalid credential"});
+//           }
+//         });
+//    }catch (error){
+//     res.status(500).json({message:"internal server error"});
+//   }
+// });
 
 // get user information
 
